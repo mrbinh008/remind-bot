@@ -38,7 +38,7 @@ const sendReminder = async (groupId, text) => {
             return;
         }
 
-        const usernames = rows.map(row => row.username.startsWith('@') ? row.username : `@${row.username}`).join(' ');
+        const usernames = [...new Set(rows.map(row => row.username.startsWith('@') ? row.username : `@${row.username}`))].join(' ');
         const message = [usernames, text].filter(Boolean).join(' ');
 
         bot.sendMessage(groupId, message);
@@ -188,7 +188,7 @@ bot.onText(/\/tagall/, (msg) => {
             return;
         }
 
-        const usernames = rows.map(row => row.username.startsWith('@') ? row.username : `@${row.username}`).join(' ');
+        const usernames = [...new Set(rows.map(row => row.username.startsWith('@') ? row.username : `@${row.username}`))].join(' ');
 
         bot.sendMessage(chatId, usernames.length > 0 ? usernames : 'No members to tag.');
     });
